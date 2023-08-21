@@ -17,9 +17,9 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.name
     
-    def get_url(self)
+    def get_url(self):
         
-        return reverse('products', args=[self.slug])
+        return reverse('category_detail', args=[self.slug])
     
 class SubCategory(models.Model):
     name = models.CharField(max_length=50, unique=True, verbose_name='Имя подкатегории')
@@ -44,3 +44,9 @@ class Products(models.Model):
         verbose_name = 'Товар'
         verbose_name_plural = 'Товары'
         ordering = ['name', '-price']
+
+    def get_url(self):
+        return reverse('product_detail', args=[self.category.slug, self.slug])
+    
+    def __str__(self):
+        return self.name
